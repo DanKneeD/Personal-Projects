@@ -109,9 +109,12 @@ function lockButtin(active){
     
     
 }
-function
+
+
+
 
 window.onresize = function resizedWindow(){
+
     if(!running){
         sizeGraph();
         randomizeGraph(); 
@@ -122,6 +125,7 @@ window.onresize = function resizedWindow(){
     }
    
  };
+
  inputValues.addEventListener("change", (event) => {
     sortingSpeed = event.target.value;   
 });

@@ -12,7 +12,7 @@
     let milaSecond =0;
 
     let running = false;
-
+dvvvcv
     buttonStart.onclick = function(){
     timer.innerHTML = "Works";
     running = true;
@@ -44,7 +44,7 @@
         
         timer.innerHTML = minute + ":" + tenthSecond + second + ":" + tenthMilaSecond + milaSecond;
         
-            setTimeout("changeTime()",10);
+            setTimeout(changeTime,10);
         }
        
     }
