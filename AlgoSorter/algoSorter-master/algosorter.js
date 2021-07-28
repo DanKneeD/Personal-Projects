@@ -3,7 +3,7 @@
 // Daniel Dousek
 //
 // Displays a randomized graph allowing the user to select different 
-// sorting algorithems and visual see how each algorithem works.
+// sorting algorithems and visually see how each algorithem works.
 //
 //Variables
 //#####################################################################
@@ -15,8 +15,8 @@
   var a             = 0;
   var b             = 0;
   var x             = 0;
+  var ColCounter    = 0;
 
-  var ColCounter    =0;
   const inputValues = document.querySelector("#Input");
   const ObjHeights  = [];
   const ChangeCol   = [];
@@ -110,6 +110,16 @@ function lockButtin(active){
     
 }
 
+function updateValues(bool){
+    if(bool){
+         arrayaccess =0;
+         comparsions =0;
+    }
+
+    document.getElementById("arrayNum").innerHTML = arrayaccess;
+    document.getElementById("compNum").innerHTML = comparsions;
+
+}
 
 
 
@@ -134,7 +144,7 @@ window.onresize = function resizedWindow(){
 
 //SORTING ALGORITHEMS
 //########################################################################################################
-  function insertionSort(inputArr) {
+function insertionSort() {
         let tempCount =0;
         const ChangeCol = [];
         var ColCounter =0;
@@ -159,19 +169,20 @@ window.onresize = function resizedWindow(){
                         $('#frequencyItem'+j).css("backgroundColor", "red"); 
                         ChangeCol[ColCounter] = j;   
                         ColCounter ++;             
-                     j--;    
+                     j--;  
+                     comparsions++;
+                     arrayaccess+=4;  
+                     
                     
                 }
                
-                //Wait to change colors back to grey
-               // setTimeout(function() {
-                      
-                //},50*i)
-              
+          
                 //put in new position
                 ObjHeights[j+1] = current;
                 $('#frequencyItem'+(j+1)).css("height", current);  
 
+                arrayaccess++;
+                updateValues(false);
                 //recall function
                 
                 if(i == (n-1)){
@@ -217,9 +228,8 @@ function bubbleSort(){
                 }
                 arrayaccess+=2;
                 comparsions++;
-                document.getElementById("arrayNum").innerHTML = arrayaccess;
-                document.getElementById("compNum").innerHTML = comparsions;
-
+                updateValues(false);
+               
         }
        
         if(z== n-1){
@@ -246,12 +256,18 @@ function selectionSort(){
             for(let d =s;d < n;d++){
                 if(ObjHeights[d] < ObjHeights[tempMinValuePos]){
                     tempMinValuePos = d;
+                    comparsions++;
                 } 
+                arrayaccess+=2;
             }
             tempMinValue = ObjHeights[s];
             ObjHeights[s] = ObjHeights[tempMinValuePos];
             ObjHeights[tempMinValuePos] = tempMinValue;
-           
+
+            arrayaccess+=3;
+
+            updateValues(false);
+
             $('#frequencyItem'+(s)).css("height", ObjHeights[s]);
             $('#frequencyItem'+(tempMinValuePos)).css("height", ObjHeights[tempMinValuePos]);
             $('#frequencyItem'+(tempMinValuePos)).css("backgroundColor", "red");
@@ -276,10 +292,6 @@ function mergeSort(){
 
 }
 
-
-
-
-
 //########################################################################################################
 
 sizeGraph();
@@ -291,7 +303,8 @@ $('#Input').val(50);
 //##############################################################################################
 document.getElementById("InsertionSort").onclick = function(){
     n = ObjHeights.length;
-  
+
+    updateValues(true);
     lockButtin(true);
     insertionSort(ObjHeights);
     
@@ -299,7 +312,8 @@ document.getElementById("InsertionSort").onclick = function(){
 
 document.getElementById("BubbleBtn").onclick = function(){
     n = ObjHeights.length;
- 
+
+    updateValues(true);
     lockButtin(true);
     bubbleSort();
 
@@ -308,15 +322,16 @@ document.getElementById("BubbleBtn").onclick = function(){
 
 document.getElementById("selectionSort").onclick = function(){
     n = ObjHeights.length;
-    
+
+    updateValues(true);
     lockButtin(true);
     selectionSort();
 }
 
-
 document.getElementById("RandomizeBtn").onclick = function(){
     sizeGraph();
     randomizeGraph();
+    updateValues(true);
 };
 
 
